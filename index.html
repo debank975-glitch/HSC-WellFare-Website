@@ -794,7 +794,7 @@
         $("go").disabled = true;
         var r = await sb.auth.signInWithPassword({email: em, password: pw});
         $("go").disabled = false;
-        if (r.error) {$("le").textContent = "The email or password is not correct. Please try again."; return }
+        if (r.error) {$("le").textContent = /invalid login|credentials/i.test(r.error.message || "") ? "The email or password is not correct. Please try again." : "Could not connect. The Supabase settings in the code may be wrong, or the internet is down."; return }
         $("pw").value = ""; enter();
       }
       $("go").onclick = doLogin; $("pw").onkeydown = $("em").onkeydown = function (e) {if (e.key === "Enter") doLogin()};
