@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Holy Spirit Citadel – Welfare Records</title>
+  <style>
+    :root {
+      --wine: #6b1230;
+      --wine2: #8c1c40;
+      --wine-d: #3f0a1c;
+      --bg: #fbf8f8;
+      --card: #fff;
+      --ink: #2a1219;
+      --muted: #7a5a64;
+      --band: #f8ecef;
+      --line: #ead7dc;
+      --head: #6b1230;
+      --headink: #fff;
+      --btn: #6b1230;
+      --btnink: #fff;
+      --glow: rgba(255, 255, 255, .18);
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #1b0910;
+        --card: #2a1019;
+        --ink: #f8eef1;
+        --muted: #d0aab6;
+        --band: #331420;
+        --line: #4a2233;
+        --head: #8c1c40;
+        --btn: #f8eef1;
+        --btnink: #3f0a1c
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #1b0910;
+      --card: #2a1019;
+      --ink: #f8eef1;
+      --muted: #d0aab6;
+      --band: #331420;
+      --line: #4a2233;
+      --head: #8c1c40;
+      --btn: #f8eef1;
+      --btnink: #3f0a1c
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 19px/1.45 "Segoe UI", system-ui, -apple-system, sans-serif
+    }
+
+    .serif {
+      font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif
+    }
+
+    .mast {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background: radial-gradient(120% 140% at 85% -20%, var(--wine2), var(--wine) 45%, var(--wine-d));
+      padding: 34px 22px 30px;
+      animation: rise .7s cubic-bezier(.2, .8, .2, 1) both
+    }
+
+    .mast:after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--glow), transparent 65%);
+      pointer-events: none
+    }
+
+    .mast .in {
+      max-width: 1100px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      justify-content: space-between;
+      align-items: flex-end
+    }
+
+    .mast h1 {
+      margin: 0;
+      font-size: clamp(34px, 7vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -.02em;
+      font-weight: 700
+    }
+
+    .mast p {
+      margin: 8px 0 0;
+      font-size: 20px;
+      opacity: .85
+    }
+
+    .tot {
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 16px;
+      padding: 14px 22px;
+      backdrop-filter: blur(6px)
+    }
+
+    .tot small {
+      display: block;
+      font-size: 17px;
+      opacity: .85
+    }
+
+    .tot b {
+      font-size: 32px;
+      font-variant-numeric: tabular-nums
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(-10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 22px 16px 60px
+    }
+
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px
+    }
+
+    .year {
+      display: flex;
+      align-items: center;
+      border: 2px solid var(--wine);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--card)
+    }
+
+    .year button {
+      border: 0;
+      background: none;
+      color: var(--wine);
+      font-size: 26px;
+      min-width: 56px;
+      min-height: 56px;
+      cursor: pointer;
+      transition: background .2s
+    }
+
+    .year button:hover {
+      background: var(--band)
+    }
+
+    .year span {
+      font-size: 24px;
+      font-weight: 700;
+      padding: 0 14px;
+      min-width: 96px;
+      text-align: center;
+      font-family: "Iowan Old Style", Palatino, Georgia, serif
+    }
+
+    .search {
+      flex: 1 1 240px;
+      position: relative
+    }
+
+    input {
+      font: inherit;
+      width: 100%;
+      min-height: 56px;
+      padding: 10px 16px;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      color: var(--ink);
+      transition: border-color .25s, box-shadow .25s
+    }
+
+    input:focus,
+    button:focus-visible {
+      outline: none;
+      border-color: var(--wine2);
+      box-shadow: 0 0 0 4px rgba(140, 28, 64, .25)
+    }
+
+    .btn {
+      min-height: 56px;
+      padding: 12px 26px;
+      border-radius: 14px;
+      border: 2px solid var(--btn);
+      background: var(--btn);
+      color: var(--btnink);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s, filter .2s
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px -10px rgba(107, 18, 48, .6)
+    }
+
+    .btn:active {
+      transform: scale(.97)
+    }
+
+    .btn.alt {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line)
+    }
+
+    .btn.red {
+      background: #a4172f;
+      border-color: #a4172f;
+      color: #fff
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: #c4304f;
+      border-color: #c4304f
+    }
+
+    .seg {
+      display: flex;
+      border: 2px solid var(--wine);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--card)
+    }
+
+    .seg button {
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 700;
+      min-height: 56px;
+      padding: 0 20px;
+      cursor: pointer;
+      transition: background .3s, color .3s
+    }
+
+    .seg button.on {
+      background: var(--head);
+      color: #fff
+    }
+
+    #mn {
+      display: none
+    }
+
+    #mt {
+      min-width: 150px
+    }
+
+    th small {
+      display: block;
+      font-size: 15px;
+      font-weight: 400;
+      opacity: .85;
+      letter-spacing: 0
+    }
+
+    td.d {
+      text-align: center;
+      min-width: 112px
+    }
+
+    .rowdel {
+      min-height: 44px;
+      padding: 0 16px;
+      border: 2px solid #c4304f;
+      background: transparent;
+      color: #c4304f;
+      border-radius: 10px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .25s, color .25s, transform .2s
+    }
+
+    .rowdel:hover {
+      background: #c4304f;
+      color: #fff
+    }
+
+    .rowdel:active {
+      transform: scale(.96)
+    }
+
+    .st:empty {
+      display: none
+    }
+
+    .st {
+      margin: 0 0 10px;
+      color: var(--wine);
+      font-weight: 600;
+      font-size: 17px
+    }
+
+    .imp {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px dashed var(--wine2);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      background: var(--band)
+    }
+
+    .imp .btn {
+      padding: 8px 20px;
+      min-height: 48px
+    }
+
+    body:not(.ok) main,
+    body:not(.ok) .tot,
+    body:not(.ok) .out {
+      display: none
+    }
+
+    .out {
+      color: #fff !important;
+      border-color: rgba(255, 255, 255, .55) !important;
+      min-height: 48px !important;
+      padding: 6px 20px !important
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 17px;
+      margin: 0 0 10px
+    }
+
+    .sheet {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      overflow: auto;
+      max-height: 66vh;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 24px 40px -28px rgba(107, 18, 48, .45);
+      animation: rise .6s .1s cubic-bezier(.2, .8, .2, 1) both
+    }
+
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 100%;
+      font-variant-numeric: tabular-nums
+    }
+
+    th,
+    td {
+      height: 58px;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      white-space: nowrap;
+      text-align: right;
+      background: var(--card)
+    }
+
+    tbody tr:nth-child(even) td {
+      background: var(--band)
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--head);
+      color: var(--headink);
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-align: center;
+      border-color: rgba(255, 255, 255, .18)
+    }
+
+    .nm {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      text-align: left;
+      min-width: 190px;
+      max-width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 6px 0 8px -6px rgba(107, 18, 48, .3)
+    }
+
+    thead .nm {
+      z-index: 3;
+      box-shadow: none
+    }
+
+    .nm i {
+      font-style: normal;
+      color: var(--muted);
+      font-weight: 400;
+      display: inline-block;
+      width: 30px
+    }
+
+    .nm:hover {
+      color: var(--wine2);
+      text-decoration: underline
+    }
+
+    td.c {
+      min-width: 92px;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s
+    }
+
+    td.c:hover {
+      background: #f1d9df !important;
+      color: #3f0a1c;
+      box-shadow: inset 0 0 0 2px var(--wine2)
+    }
+
+    td.c.e {
+      color: #c9aab3
+    }
+
+    td.c.f {
+      font-weight: 600
+    }
+
+    td.t {
+      font-weight: 700;
+      min-width: 120px;
+      color: var(--wine);
+      background: var(--band)
+    }
+
+    tfoot td {
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+      background: var(--wine-d);
+      color: #fff;
+      font-weight: 700;
+      border-color: rgba(255, 255, 255, .15)
+    }
+
+    tfoot .nm {
+      z-index: 3;
+      cursor: default;
+      color: #fff
+    }
+
+    tfoot .nm:hover {
+      color: #fff;
+      text-decoration: none
+    }
+
+    tbody tr {
+      animation: rise .4s both
+    }
+
+    .empty {
+      padding: 44px 16px;
+      text-align: center;
+      color: var(--muted)
+    }
+
+    .ov {
+      position: fixed;
+      inset: 0;
+      background: rgba(40, 6, 18, .55);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 10
+    }
+
+    .ov.show {
+      display: flex;
+      animation: fade .25s
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .box {
+      background: var(--card);
+      color: var(--ink);
+      border-radius: 22px;
+      padding: 26px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .5);
+      animation: pop .35s cubic-bezier(.2, .8, .2, 1)
+    }
+
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(.96)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .box h2 {
+      margin: 0 0 4px;
+      font-size: 28px;
+      letter-spacing: -.01em;
+      color: var(--wine)
+    }
+
+    @media (prefers-color-scheme:dark) {
+
+      :root:not([data-theme="light"]) .box h2,
+      :root:not([data-theme="light"]) td.t,
+      :root:not([data-theme="light"]) .year button {
+        color: #f2b6c6
+      }
+    }
+
+    .box p {
+      margin: 0 0 12px;
+      color: var(--muted)
+    }
+
+    .box label {
+      display: block;
+      font-weight: 600;
+      margin: 14px 0 6px
+    }
+
+    .box .btn {
+      width: 100%;
+      margin-top: 12px
+    }
+
+    .err {
+      color: #c4304f;
+      min-height: 1.3em;
+      font-size: 18px;
+      margin-top: 6px
+    }
+
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+      transform: translate(-50%, 20px);
+      background: var(--wine-d);
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all .35s cubic-bezier(.2, .8, .2, 1);
+      z-index: 20;
+      border: 1px solid rgba(255, 255, 255, .2)
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0)
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      * {
+        animation-duration: .01s !important;
+        transition-duration: .01s !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mast">
+    <div class="in">
+      <div>
+        <h1 class="serif">Holy Spirit Citadel</h1>
+        <p>Welfare Records</p>
+      </div>
+      <button class="btn alt out" id="out">Sign out</button>
+      <div class="tot"><small id="yl">Collected this year</small><b id="gt">GH₵ 0</b></div>
+    </div>
+  </header>
+
+  <div id="login" style="display:none">
+    <div class="box" style="margin:36px auto">
+      <h2 class="serif">Welcome</h2>
+      <p>Please sign in to see the welfare records.</p>
+      <label for="em">Email</label><input id="em" type="email" autocomplete="username">
+      <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password">
+      <button class="btn alt" id="sp" type="button" style="min-height:48px">Show password</button>
+      <div class="err" id="le" role="alert"></div>
+      <button class="btn" id="go">Sign in</button>
+    </div>
+  </div>
+  <main>
+    <div class="bar">
+      <div class="year" role="group" aria-label="Choose year"><button id="py" aria-label="Previous year">‹</button><span
+          id="yr"></span><button id="ny" aria-label="Next year">›</button></div>
+      <div class="seg" role="group" aria-label="Choose view"><button id="vm" class="on">Months</button><button
+          id="vw">Weeks</button></div>
+      <div class="year" id="mn"><button id="pm" aria-label="Previous month">‹</button><span id="mt"></span><button
+          id="nm2" aria-label="Next month">›</button></div>
+      <div class="search"><input id="q" type="search" placeholder="Search for a member by name" autocomplete="off"
+          aria-label="Search members"></div>
+      <button class="btn" id="add">Add Member</button>
+    </div>
+    <p class="st" id="st"></p>
+
+    <p class="hint">Tap any box to write a payment. Choose Months or Weeks above. Tap a name to see details. Use Delete
+      at the end of a row to delete a member. Amounts are in GH₵.</p>
+    <div class="sheet">
+      <div id="grid"></div>
+    </div>
+  </main>
+
+  <div class="ov" id="ov">
+    <div class="box" id="bx"></div>
+  </div>
+  <div id="toast" role="status"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script>
+    /* ===== STEP 4 OF THE SETUP GUIDE: paste your two Supabase settings between the quotes ===== */
+    var SUPABASE_URL = "postgresql://postgres:GnP%24BX_8s%407T!td@db.auxhwurxejeqydnwydsj.supabase.co:5432/postgres";
+    var SUPABASE_KEY = "db.auxhwurxejeqydnwydsj.supabase.co";
+    /* ============================================================================================ */
+    (function () {
+      var D = {members: []}, Y = new Date().getFullYear(), M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        FM = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var LOADING = true, CAN = true, sb = null, subbed = false;
+      function fail(e) {console.error(e); toast("Could not save. Please check your internet and try again.")}
+      function run(p) {return Promise.resolve(p).then(function (r) {if (r && r.error) throw r.error; return load()}).catch(fail)}
+      async function fetchAll(t, cols, ord) {var out = [], from = 0; for (; ;) {var q = sb.from(t).select(cols); ord.forEach(function (o) {q = q.order(o)}); var r = await q.range(from, from + 999); if (r.error) throw r.error; out = out.concat(r.data); if (r.data.length < 1000) break; from += 1000} return out}
+      async function load() {
+        try {
+          var ms = await fetchAll("members", "id,name,phone", ["id"]), es = await fetchAll("entries", "member_id,period,amount", ["member_id", "period"]), by = {};
+          D.members = ms.map(function (m) {var o = {id: m.id, name: m.name, phone: m.phone || "", cells: {}}; by[m.id] = o; return o});
+          es.forEach(function (e) {if (by[e.member_id]) by[e.member_id].cells[e.period] = Number(e.amount)});
+          LOADING = false; render();
+        } catch (e) {console.error(e); LOADING = false; $("grid").innerHTML = '<div class="empty">Could not load the records. Please check your internet and refresh the page.</div>'}
+      }
+      var $ = function (i) {return document.getElementById(i)};
+      function n(v) {return Number(v).toLocaleString("en-GH", {maximumFractionDigits: 2})}
+      function esc(t) {var d = document.createElement("div"); d.textContent = t; return d.innerHTML}
+      var V = "m", MO = new Date().getMonth();
+      function key(i) {return Y + "-" + String(i + 1).padStart(2, "0")}
+      function wkey(i, w) {return key(i) + "-w" + w}
+      function dim() {return new Date(Y, MO + 1, 0).getDate()}
+      function nw() {return Math.ceil(dim() / 7)}
+      function mv(m, i) {var t = m.cells[key(i)] || 0; for (var w = 1; w <= 5; w++)t += m.cells[wkey(i, w)] || 0; return t}
+      function rowT(m) {var t = 0; for (var k in m.cells) if (k.indexOf(Y + "-") === 0) t += m.cells[k]; return t}
+      function rowV(m) {var t = 0; if (V === "m") return rowT(m); for (var w = 1; w <= nw(); w++)t += m.cells[wkey(MO, w)] || 0; return t}
+      function uid() {return Date.now().toString(36) + Math.random().toString(36).slice(2, 5)}
+      function find(id) {return D.members.filter(function (m) {return m.id === id})[0]}
+
+      function render() {
+        if (LOADING) {$("grid").innerHTML = '<div class="empty">Loading records\u2026</div>'; return }
+        $("st").textContent = "";
+        $("add").style.display = CAN ? "" : "none";
+        $("yr").textContent = Y; $("yl").textContent = "Collected in " + Y;
+        $("mn").style.display = V === "w" ? "flex" : "none"; $("mt").textContent = FM[MO]; $("vm").className = V === "m" ? "on" : ""; $("vw").className = V === "w" ? "on" : "";
+        var q = $("q").value.trim().toLowerCase(), all = D.members.slice().sort(function (a, b) {return a.name.localeCompare(b.name)}),
+          f = q ? all.filter(function (m) {return m.name.toLowerCase().indexOf(q) > -1}) : all, N = V === "m" ? 12 : nw(), col = new Array(N).fill(0), g = 0, G = 0;
+        function val(m, i) {return V === "m" ? mv(m, i) : (m.cells[wkey(MO, i + 1)] || 0)}
+        all.forEach(function (m) {G += rowT(m); for (var i = 0; i < N; i++)col[i] += val(m, i)}); col.forEach(function (v) {g += v});
+        $("gt").textContent = "GH\u20b5 " + n(G);
+        if (!all.length) {$("grid").innerHTML = '<div class="empty">No members yet. Tap "Add Member" to begin.</div>'; return }
+        if (!f.length) {$("grid").innerHTML = '<div class="empty">No member found. Check the spelling and try again.</div>'; return }
+        var h = '<table><thead><tr><th class="nm">Member</th>';
+        for (var i = 0; i < N; i++)h += V === "m" ? "<th>" + M[i] + "</th>" : "<th>Week " + (i + 1) + "<small>" + M[MO] + " " + (i * 7 + 1) + "\u2013" + Math.min(i * 7 + 7, dim()) + "</small></th>";
+        h += "<th>Total</th>" + (CAN ? "<th>Delete</th>" : "") + "</tr></thead><tbody>";
+        f.forEach(function (m, r) {
+          h += '<tr style="animation-delay:' + Math.min(r, 12) * 25 + 'ms"><td class="nm" data-m="' + m.id + '" title="' + esc(m.name) + '"><i>' + (r + 1) + '</i>' + esc(m.name) + "</td>";
+          for (var i = 0; i < N; i++) {var v = val(m, i); h += '<td class="c ' + (v ? "f" : "e") + '" data-m="' + m.id + '" data-i="' + i + '">' + (v ? n(v) : "\u2013") + "</td>"}
+          h += '<td class="t">' + n(rowV(m)) + "</td>" + (CAN ? '<td class="d"><button class="rowdel" data-d="' + m.id + '" aria-label="Delete ' + esc(m.name) + '">Delete</button></td>' : "") + "</tr>"
+        });
+        h += '</tbody><tfoot><tr><td class="nm">Total</td>'; col.forEach(function (v) {h += "<td>" + (v ? n(v) : "\u2013") + "</td>"}); h += "<td>" + n(g) + "</td>" + (CAN ? "<td></td>" : "") + "</tr></tfoot></table>";
+        $("grid").innerHTML = h;
+      }
+      function open(html, focus) {$("bx").innerHTML = html; $("ov").classList.add("show"); if (focus) setTimeout(function () {var e = $(focus); e && e.focus()}, 60)}
+      function close() {$("ov").classList.remove("show")}
+      function toast(t) {var e = $("toast"); e.textContent = t; e.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(function () {e.classList.remove("show")}, 2500)}
+
+      function cell(id, i) {
+        if (!CAN) {toast("View only: you can look but not change."); return } var m = find(id), wk = V === "w", k = wk ? wkey(MO, i + 1) : key(i), v = m.cells[k],
+          lab = wk ? FM[MO] + " " + Y + " \u2013 Week " + (i + 1) + " (days " + (i * 7 + 1) + " to " + Math.min(i * 7 + 7, dim()) + ")" : FM[i] + " " + Y, ex = wk ? 0 : mv(m, i) - (v || 0);
+        open('<h2 class="serif">' + esc(m.name) + '</h2><p>' + lab + '</p>' + (ex ? '<p>Weekly payments already recorded: <b>GH\u20b5 ' + n(ex) + '</b></p>' : '') + '<label for="a">' + (ex ? 'Other amount for the month (GH\u20b5)' : 'Amount paid (GH\u20b5)') + '</label><input id="a" type="number" inputmode="decimal" min="0" step="0.01" value="' + (v || "") + '"><div class="err" id="e"></div><button class="btn" id="ok">Save</button>' + (v ? '<button class="btn ghost" id="clr">Clear this amount</button>' : "") + '<button class="btn alt" id="cx">Cancel</button>', "a");
+        function save() {var a = parseFloat($("a").value); if (!(a > 0)) {$("e").textContent = "Please type an amount greater than zero."; return } m.cells[k] = Math.round(a * 100) / 100; run(sb.from("entries").upsert({member_id: id, period: k, amount: m.cells[k]}, {onConflict: "member_id,period"})); close(); render(); toast("Payment saved")}
+        $("ok").onclick = save; $("cx").onclick = close; $("a").onkeydown = function (e) {if (e.key === "Enter") save()};
+        if ($("clr")) $("clr").onclick = function () {delete m.cells[k]; run(sb.from("entries").delete().eq("member_id", id).eq("period", k)); close(); render(); toast("Amount cleared")};
+      }
+      function member(id) {
+        var m = find(id);
+        open('<h2 class="serif">' + esc(m.name) + '</h2><p>' + (m.phone ? "Phone: " + esc(m.phone) + "<br>" : "") + "Paid in " + Y + ": <b>GH₵ " + n(rowT(m)) + '</b></p><button class="btn alt" id="cx">Close</button>' + (CAN ? '<button class="btn ghost" id="rm">Delete Member</button>' : "") + '');
+        $("cx").onclick = close;
+        if ($("rm")) $("rm").onclick = function () {askDel(id)};
+      }
+      function askDel(id) {
+        var m = find(id);
+        open('<h2 class="serif">Delete member?</h2><p>Are you sure you want to delete ' + esc(m.name) + "? All their payment records will also be deleted.</p>" + '<button class="btn red" id="y">Yes, Delete</button><button class="btn alt" id="no">No, Go Back</button>');
+        $("no").onclick = close; $("y").onclick = function () {D.members = D.members.filter(function (x) {return x.id !== id}); run(sb.from("members").delete().eq("id", id)); close(); render(); toast("Member deleted")};
+      }
+      function addM() {
+        open('<h2 class="serif">Add a Member</h2><label for="nn">Full name</label><input id="nn" autocomplete="off"><div class="err" id="e"></div><label for="pp">Phone number (optional)</label><input id="pp" type="tel" autocomplete="off"><button class="btn" id="ok">Save</button><button class="btn alt" id="cx">Cancel</button>', "nn");
+        var warned = false;
+        function save() {
+          var v = $("nn").value.trim(); if (!v) {$("e").textContent = "Please type the member's name."; return }
+          if (!warned && D.members.some(function (m) {return m.name.toLowerCase() === v.toLowerCase()})) {warned = true; $("e").textContent = "This name already exists. Tap Save again to add anyway."; return }
+          var mem = {id: uid(), name: v, phone: $("pp").value.trim(), cells: {}}; D.members.push(mem); run(sb.from("members").insert({name: mem.name, phone: mem.phone})); close(); render(); toast("Member added successfully")
+        }
+        $("ok").onclick = save; $("cx").onclick = close; $("nn").oninput = function () {warned = false; $("e").textContent = ""};
+        $("pp").onkeydown = $("nn").onkeydown = function (e) {if (e.key === "Enter") save()};
+      }
+      $("grid").addEventListener("click", function (e) {
+        var d = e.target.closest("[data-d]"); if (d) {askDel(d.dataset.d); return }
+        var c = e.target.closest("td.c"); if (c) {cell(c.dataset.m, +c.dataset.i); return }
+        var m = e.target.closest("td.nm[data-m]"); if (m) member(m.dataset.m)
+      });
+      $("q").addEventListener("input", render);
+      $("add").onclick = addM;
+      $("vm").onclick = function () {V = "m"; render()}; $("vw").onclick = function () {V = "w"; render()};
+      $("pm").onclick = function () {if (MO === 0) {MO = 11; Y--} else MO--; render()}; $("nm2").onclick = function () {if (MO === 11) {MO = 0; Y++} else MO++; render()};
+      $("py").onclick = function () {Y--; render()}; $("ny").onclick = function () {Y++; render()};
+      $("ov").addEventListener("click", function (e) {if (e.target === this) close()});
+      document.addEventListener("keydown", function (e) {if (e.key === "Escape") close()});
+      function show(v) {$("login").style.display = v === "login" ? "block" : "none"; document.body.classList.toggle("ok", v === "app")}
+      function enter() {
+        show("app"); load();
+        if (!subbed) {subbed = true; var t; sb.channel("hsc").on("postgres_changes", {event: "*", schema: "public"}, function () {clearTimeout(t); t = setTimeout(load, 400)}).subscribe()}
+      }
+      async function doLogin() {
+        var em = $("em").value.trim(), pw = $("pw").value; $("le").textContent = "";
+        if (!em || !pw) {$("le").textContent = "Please type your email and password."; return }
+        $("go").disabled = true;
+        var r = await sb.auth.signInWithPassword({email: em, password: pw});
+        $("go").disabled = false;
+        if (r.error) {$("le").textContent = "The email or password is not correct. Please try again."; return }
+        $("pw").value = ""; enter();
+      }
+      $("go").onclick = doLogin; $("pw").onkeydown = $("em").onkeydown = function (e) {if (e.key === "Enter") doLogin()};
+      $("sp").onclick = function () {var p = $("pw"); p.type = p.type === "password" ? "text" : "password"; this.textContent = p.type === "password" ? "Show password" : "Hide password"};
+      $("out").onclick = async function () {await sb.auth.signOut(); D.members = []; LOADING = true; show("login")};
+      (async function () {
+        if (!window.supabase || /PASTE/.test(SUPABASE_URL + SUPABASE_KEY)) {show("login"); $("le").textContent = "This app is not connected yet. Add the Supabase settings at the top of the code."; $("go").disabled = true; return }
+        sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        var r = await sb.auth.getSession();
+        if (r.data && r.data.session) enter(); else show("login");
+        sb.auth.onAuthStateChange(function (ev, sess) {if (!sess && ev === "SIGNED_OUT") show("login")});
+      })();
+    })();
+  </script>
+</body>
+
+</html>
